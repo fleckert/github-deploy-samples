@@ -10,6 +10,7 @@ permissions:
   contents: read
 
 jobs:
+  # login using the azure/login action
   managed-identity-azure-login:
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +22,7 @@ jobs:
 
       - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
+  # login using az cli and federated token
   managed-identity-code-login:
     runs-on: ubuntu-latest
     steps:
@@ -33,3 +35,5 @@ jobs:
             --federated-token "$(curl --silent --header "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange" | jq --raw-output '.value')"
 
       - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - run: az logout
