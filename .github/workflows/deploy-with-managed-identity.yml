@@ -31,4 +31,4 @@ jobs:
 
       - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-      - run: az logout
+      - run: az account clear && az logout
