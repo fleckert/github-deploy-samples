@@ -7,7 +7,6 @@ concurrency:
 
 permissions:
   id-token: write
-  contents: read
 
 jobs:
   # login using the azure/login action
@@ -22,7 +21,7 @@ jobs:
 
       - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-  # login using az cli and federated token
+  # login using az cli
   managed-identity-code-login:
     runs-on: ubuntu-latest
     steps:
