@@ -1,10 +1,6 @@
 on:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false
-
 permissions:
   id-token: write
 
@@ -22,7 +18,7 @@ jobs:
       - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
   # login using az cli
-  managed-identity-code-login:
+  managed-identity-cli-login:
     runs-on: ubuntu-latest
     steps:
       - run: |
