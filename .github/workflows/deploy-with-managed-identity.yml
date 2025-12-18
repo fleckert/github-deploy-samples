@@ -1,13 +1,8 @@
 on:
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false
-
 permissions:
   id-token: write
-  contents: read
 
 jobs:
   # login using the azure/login action
@@ -20,10 +15,8 @@ jobs:
           client-id: ${{ vars.AZURE_CLIENT_ID }}
           allow-no-subscriptions: true
 
-      - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
-
-  # login using az cli and federated token
-  managed-identity-code-login:
+  # login using az cli
+  managed-identity-cli-login:
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -34,6 +27,4 @@ jobs:
             --tenant   ${{ vars.AZURE_TENANT_ID }} \
             --federated-token "$(curl --silent --header "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange" | jq --raw-output '.value')"
 
-      - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
-
-      - run: az logout
+      - run: az account clear
