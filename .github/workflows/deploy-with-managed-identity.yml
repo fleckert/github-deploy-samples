@@ -20,3 +20,4 @@ jobs:
           allow-no-subscriptions: true
 
       - run: az group list --subscription ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
