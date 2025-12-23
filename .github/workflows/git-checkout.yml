@@ -21,3 +21,4 @@ jobs:
       - run: |
           git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git .
           git switch ${{ github.event.pull_request.head.ref || github.ref_name }}
+          echo "SHA $(git rev-parse HEAD)"
