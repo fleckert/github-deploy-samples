@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # login using the azure/login action
+  git-checkout-with-github-action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+  # login using az cli
+  git-checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git .
+          git switch ${{ github.event.pull_request.head.ref || github.ref_name }}

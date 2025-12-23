@@ -10,6 +10,8 @@ A possible benefit may be due to processes in an enterprise setup.
 
 Here, creating an User Assigned Managed Identity might be a quick way to provide the Azure context for GitHub workflows.
 
+The point I am trying to make... the User Assigned Managed Identity does NOT have to be used on the GitHUb Runner, it can be used like any other Microsoft Entra ID application.
+
 
 The GitHub Action [azure/login](https://github.com/azure/login)  is the default way how to log in, but the Azure CLI + GitHub native approach works as well.
 
