@@ -26,3 +26,12 @@ az login
         "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange" | jq --raw-output '.value'
       )"
 ```
+
+
+# .github/workflows/git-checkout.yml
+
+Checking out the current repository using
+- [actions/checkout](https://github.com/actions/checkout)
+- using `git` commands
+
+This might be beneficial if the `git` commands work well enough and you don't want to use external code.

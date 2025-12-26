@@ -1,8 +1,5 @@
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 20251223
 
 permissions:
   contents: read
