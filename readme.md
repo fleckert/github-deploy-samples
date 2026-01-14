@@ -35,3 +35,14 @@ Checking out the current repository using
 - using `git` commands
 
 This might be beneficial if the `git` commands work well enough and you don't want to use external code.
+
+
+# .github/workflows/github-secrets.yml
+If you want to dump the value of a GitHub Secret, see [github-secrets.yml](./.github/workflows/github-secrets.yml)
+
+```
+echo "${{ secrets.MY_SECRET_NAME }}" | sed 's/./& /g
+```
+
+the value shows up woth blanks between the characters of the secret to avoid masking
+
