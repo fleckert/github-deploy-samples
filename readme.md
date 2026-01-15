@@ -8,18 +8,18 @@ Notes:
 - This is for `remote`s named `origin`
 - This does not work when a port is specified
 
-Checking out this repo via ssh protocol
+Checking out this repo via ssh protocol results in 
 
 ```bash
-git remote -v 
+> git remote -v 
 origin  git@github.com:fleckert/github-deploy-samples.git (fetch)
 origin  git@github.com:fleckert/github-deploy-samples.git (push)
 ```
 
-Checking out this repo via https protocol
+Checking out this repo via https protocol results in 
 
 ```bash
-git remote -v
+> git remote -v
 origin  https://github.com/fleckert/github-deploy-samples.git (fetch)
 origin  https://github.com/fleckert/github-deploy-samples.git (push)
 ```
@@ -31,11 +31,22 @@ git remote -v | grep '(push)' | sed 's/origin\t//g' | sed 's/\.git (push)//' | s
 ```
 |Input|Output|
 |-|-|
-|origin https://github.com/fleckert/github-deploy-samples.git (push)'|https://github.com/fleckert/github-deploy-samples|
-|origin git@github.com:fleckert/github-deploy-samples.git (push)' |https://github.com/fleckert/github-deploy-samples||
+|origin https://github.com/fleckert/github-deploy-samples.git (push) | https://github.com/fleckert/github-deploy-samples|
+|origin git@github.com:fleckert/github-deploy-samples.git (push)     | https://github.com/fleckert/github-deploy-samples||
 
 ``` bash
 # add this to ~/.zshrc
+#
+# This command converts a Git remote URL (SSH or HTTPS) into a browser-accessible HTTPS URL.
+# see ./.git/config
+
+# git remote -v                    - Lists all remote repositories with their URLs
+# grep '(push)'                    - Filters to show only the push URL line
+# sed 's/origin\t//g'              - Removes "origin" and the tab character
+# sed 's/\.git (push)//'           - Removes ".git (push)" from the end
+# sed 's/:/\//'                    - Replaces the first colon with a slash (converts SSH format github.com:user/repo to github.com/user/repo)
+# sed 's/git@/https:\/\//g'        - Replaces git@ with https://
+# sed 's/https\/\/\//https:\/\//g' - Fixes any accidental triple slashes to double slashes
 
 alias opengit='git remote -v &>/dev/null && open $(git remote -v | grep '\''(push)'\'' | sed '\''s/origin\t//g'\'' | sed '\''s/\.git (push)//'\'' | sed '\''s/:/\//'\'' | sed '\''s/git@/https:\/\//g'\'' | sed '\''s/https\/\/\//https:\/\//g'\'')'
 ```
