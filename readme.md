@@ -1,5 +1,23 @@
 A repo for code samples
 
+# open Git repo online
+
+I am using macOS right now, so the example is for zsh
+
+``` bash
+# add this to .zshrc
+
+alias opengit='open $(git remote -v | grep push | sed "s/.*@\([^:]*\):\([^.]*\).*/https:\/\/\1\/\2/")'
+```
+
+and within a git repo
+
+``` bash
+opengit
+```
+
+will open the online Git repo
+
 # .github/workflows/deploy-with-managed-identity.yml
 
 Logging into Azure with a federated credentials setup using an User Assigned Managed Identity works as good as an Microsoft Entra ID Application.
