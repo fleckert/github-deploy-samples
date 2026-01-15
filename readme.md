@@ -37,7 +37,6 @@ git remote -v | grep '(push)' | sed 's/origin\t//g' | sed 's/\.git (push)//' | s
 ``` bash
 # add this to ~/.zshrc
 
-```bash
 alias opengit='git remote -v &>/dev/null && open $(git remote -v | grep '\''(push)'\'' | sed '\''s/origin\t//g'\'' | sed '\''s/\.git (push)//'\'' | sed '\''s/:/\//'\'' | sed '\''s/git@/https:\/\//g'\'' | sed '\''s/https\/\/\//https:\/\//g'\'')'
 ```
 
