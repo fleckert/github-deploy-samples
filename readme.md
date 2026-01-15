@@ -7,6 +7,8 @@ Notes:
 - This is for `zsh`
 - This is for `remote`s named `origin`
 - This does not work when a port is specified
+- This is a alternative to `gh browse`... in case you don't have the GitHub Cli installed.
+- This works for repositories in https://bitbucket.org/ as well...
 
 Checking out this repo via ssh protocol results in 
 
