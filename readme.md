@@ -1,5 +1,54 @@
 A repo for code samples
 
+# open Git repo online
+
+Notes:
+
+- This is for `zsh`
+- This is for `remote`s named `origin`
+- This does not work when a port is specified
+
+Checking out this repo via ssh protocol
+
+```bash
+git remote -v 
+origin  git@github.com:fleckert/github-deploy-samples.git (fetch)
+origin  git@github.com:fleckert/github-deploy-samples.git (push)
+```
+
+Checking out this repo via https protocol
+
+```bash
+git remote -v
+origin  https://github.com/fleckert/github-deploy-samples.git (fetch)
+origin  https://github.com/fleckert/github-deploy-samples.git (push)
+```
+
+and resolving the Git server url with
+
+``` bash
+git remote -v | grep '(push)' | sed 's/origin\t//g' | sed 's/\.git (push)//' | sed 's/:/\//' | sed 's/git@/https:\/\//g' | sed 's/https\/\/\//https:\/\//g'
+```
+|Input|Output|
+|-|-|
+|origin https://github.com/fleckert/github-deploy-samples.git (push)'|https://github.com/fleckert/github-deploy-samples|
+|origin git@github.com:fleckert/github-deploy-samples.git (push)' |https://github.com/fleckert/github-deploy-samples||
+
+``` bash
+# add this to ~/.zshrc
+
+```bash
+alias opengit='git remote -v &>/dev/null && open $(git remote -v | grep '\''(push)'\'' | sed '\''s/origin\t//g'\'' | sed '\''s/\.git (push)//'\'' | sed '\''s/:/\//'\'' | sed '\''s/git@/https:\/\//g'\'' | sed '\''s/https\/\/\//https:\/\//g'\'')'
+```
+
+and within a git repo
+
+``` bash
+opengit
+```
+
+will open the online Git repo
+
 # .github/workflows/deploy-with-managed-identity.yml
 
 Logging into Azure with a federated credentials setup using an User Assigned Managed Identity works as good as an Microsoft Entra ID Application.
