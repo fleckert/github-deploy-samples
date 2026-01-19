@@ -20,8 +20,8 @@ jobs:
           git switch ${{ github.event.pull_request.head.ref || github.ref_name }}
           echo "SHA $(git rev-parse HEAD)"
 
-  # git clone using git command
-  git-checkout-nion-github-com:
+  # git clone using git command for non-github.com instance
+  git-checkout-non-github-com:
     runs-on: ubuntu-latest
     steps:
       - run: |
