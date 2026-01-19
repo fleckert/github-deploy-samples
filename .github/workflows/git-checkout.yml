@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - '**'
+      - 'dev/non-github'
 
 permissions:
   contents: read
