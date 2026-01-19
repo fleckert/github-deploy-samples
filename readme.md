@@ -105,5 +105,5 @@ If you want to dump the value of a GitHub Secret, see [github-secrets.yml](./.gi
 echo "${{ secrets.MY_SECRET_NAME }}" | sed 's/./& /g
 ```
 
-the value shows up woth blanks between the characters of the secret to avoid masking
+the value shows up with blanks between the characters of the secret to avoid masking
 
