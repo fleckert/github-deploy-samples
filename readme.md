@@ -74,30 +74,43 @@ Here, creating an User Assigned Managed Identity might be a quick way to provide
 The point I am trying to make... the User Assigned Managed Identity does NOT have to be used on the GitHUb Runner, it can be used like any other Microsoft Entra ID application.
 
 
-The GitHub Action [azure/login](https://github.com/azure/login)  is the default way how to log in, but the Azure CLI + GitHub native approach works as well.
+The GitHub Action [azure/login](https://github.com/azure/login)  is the default way how to log in, but the Azure CLI or Azure Powershell + GitHub native approach works as well.
 
 ```bash
 az login
     --service-principal
-    --allow-no-subscriptions
-    --username <client_id>
     --tenant   <tenant_id>
+    --username <client_id>
     --federated-token "$(
         curl --silent --header "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN"
         "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange" | jq --raw-output '.value'
       )"
 ```
 
+```powershell
+Connect-AzAccount
+    -ServicePrincipal
+    -Tenant        <tenant_id>
+    -ApplicationId <client_id>
+    -FederatedToken $(
+        Invoke-RestMethod -Headers @{Authorization = "Bearer $env:ACTIONS_ID_TOKEN_REQUEST_TOKEN"} 
+        -Uri "$env:ACTIONS_ID_TOKEN_REQUEST_URL&audience=api://AzureADTokenExchange"
+     ).value
+
+```
 
 # .github/workflows/git-checkout.yml
 
-Checking out the current repository using
-- [actions/checkout](https://github.com/actions/checkout)
-- using `git` commands
+Checking out the current repository using `git` commands.
 
-This might be beneficial if the `git` commands work well enough and you don't want to use external code.
+This might be beneficial if the `git` commands work well enough and you don't want to use external code i.e. [actions/checkout](https://github.com/actions/checkout).
 
-
+``` bash
+SERVER_HOST=$(echo "${{ github.server_url }}" | sed 's|https://||')
+git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${SERVER_HOST}/${{ github.repository }}.git .
+git switch ${{ github.event.pull_request.head.ref || github.ref_name }}
+echo "SHA $(git rev-parse HEAD)"
+```
 # .github/workflows/github-secrets.yml
 If you want to dump the value of a GitHub Secret, see [github-secrets.yml](./.github/workflows/github-secrets.yml)
 
