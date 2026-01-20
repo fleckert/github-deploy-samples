@@ -1,8 +1,5 @@
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - dev/pwsh
 
 permissions:
   id-token: write
